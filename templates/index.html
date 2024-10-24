@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Сравнение погоды</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        form {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        h2, h3 {
+            color: #333;
+        }
+        .result {
+            max-width: 600px;
+            margin: 20px auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .error {
+            color: red;
+            text-align: center;
+        }
+        .weather-status {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Сравните погоду в двух городах</h1>
+    <form action="/" method="post">
+        <label for="city1">Город 1:</label>
+        <input type="text" id="city1" name="city1" required>
+
+        <label for="city2">Город 2:</label>
+        <input type="text" id="city2" name="city2" required>
+
+        <button type="submit">Сравнить</button>
+    </form>
+
+    {% if error_message %}
+        <p class="error">{{ error_message }}</p>
+    {% endif %}
+
+    {% if result %}
+        <div class="result">
+            <h2>Результаты сравнения:</h2>
+            <h3>Погода в {{ result.city1.name }}</h3>
+            <p>Температура: {{ result.city1.temperature }}°C</p>
+            <p>Скорость ветра: {{ result.city1.wind_speed }} км/ч</p>
+            <p>Вероятность осадков: {{ result.city1.probability_of_precipitation }}%</p>
+            <p>Влажность: {{ result.city1.humidity }}%</p>
+            <p class="weather-status">Статус погоды: {{ result.city1.weather_status }}</p>
+
+            <h3>Погода в {{ result.city2.name }}</h3>
+            <p>Температура: {{ result.city2.temperature }}°C</p>
+            <p>Скорость ветра: {{ result.city2.wind_speed }} км/ч</p>
+            <p>Вероятность осадков: {{ result.city2.probability_of_precipitation }}%</p>
+            <p>Влажность: {{ result.city2.humidity }}%</p>
+            <p class="weather-status">Статус погоды: {{ result.city2.weather_status }}</p>
+        </div>
+    {% endif %}
+</body>
+</html>
